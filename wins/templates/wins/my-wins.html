@@ -13,6 +13,7 @@
 <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">send to customer</a>
 {% endcomment %}
 
+
     <div class="my-wins">
 
         {% if not unsent and not sent and not responded %}
@@ -37,7 +38,7 @@
             {% else %}
 
                 <div class="scroll-table">
-                    <table class="table table-striped unsent-wins">
+                    <table class="table table-striped unsent-wins" id="unsentWins">
                         <thead>
                             <tr>
                                 <th>UK Company</th>
@@ -109,7 +110,6 @@
             <h3 class="my-wins-header">Customer responded <span class="header-count">({{ responded | length }})</span></h3>
 
             {% if not responded %}
-
                 <p class="text-center well">You don&#39;t have any responses.</p>
 
             {% else %}
@@ -149,4 +149,20 @@
 
     </div>
 
+
+
 {% endblock content %}
+
+{% block js_footer %}
+ 	<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" media="screen" rel="stylesheet">
+  	<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+	<script>
+	$(document).ready( function () {
+	    var options = {stateSave: true};
+	    $('.unsent-wins').DataTable(options);
+	    $('.sent-to-customer-wins').DataTable(options);
+	    $('.responded-wins').DataTable(options);
+	});
+	</script>
+{% endblock %}
