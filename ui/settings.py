@@ -63,7 +63,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'root': {
-        'level': 'DEBUG',
+        'level': 'INFO',
         'handlers': ['console'],
     },
     'formatters': {
@@ -157,10 +157,6 @@ NOTIFICATIONS_AP = "{}/notifications/".format(DATA_SERVER)
 LOGIN_AP = "{}/auth/login/".format(DATA_SERVER)
 LOGOUT_AP = "{}/auth/logout/".format(DATA_SERVER)
 IS_LOGGED_IN_AP = "{}/auth/is-logged-in/".format(DATA_SERVER)
-
-OAUTH_URL = "{}/oauth2/auth_url/".format(DATA_SERVER)
-OAUTH_CALLBACK_URL = "{}/oauth2/callback/".format(DATA_SERVER)
-
 CSV_AP = "{}/csv/".format(DATA_SERVER)
 EW_CSV_AP = "{}/csv/auto/".format(DATA_SERVER)
 ADD_USER_AP = "{}/admin/add-user/".format(DATA_SERVER)
@@ -229,11 +225,3 @@ CSV_UPLOAD_AWS_ACCESS_KEY_ID = os.getenv('CSV_UPLOAD_AWS_ACCESS_KEY_ID')
 CSV_UPLOAD_AWS_SECRET_ACCESS_KEY = os.getenv('CSV_UPLOAD_AWS_SECRET_ACCESS_KEY')
 CSV_UPLOAD_AWS_BUCKET = os.getenv('CSV_UPLOAD_AWS_BUCKET')
 CSV_AWS_REGION = os.getenv('CSV_AWS_REGION', 'eu-west-2')
-
-
-SHOW_ENV_BANNER = os.getenv('SHOW_ENV_BANNER', False)
-ENV_NAME = os.getenv('ENV_NAME')
-
-GIT_BRANCH = os.getenv('GIT_BRANCH', '')
-GIT_COMMIT = os.getenv('GIT_COMMIT', '')
-

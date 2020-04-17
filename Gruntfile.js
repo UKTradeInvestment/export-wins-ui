@@ -1,5 +1,4 @@
 var loadGruntTasks = require( 'load-grunt-tasks' );
-var sass = require('node-sass');
 
 module.exports = function( grunt ){
 
@@ -64,7 +63,9 @@ module.exports = function( grunt ){
 
 		uglify: {
 			options: {
-                warnings: false,
+				compress: {
+					warnings: false
+				},
 				mangle: true,
 				preserveComments: /^!|@preserve|@license|@cc_on/i,
 				sourceMap: true
@@ -81,7 +82,6 @@ module.exports = function( grunt ){
 
 		sass: {
 			options: {
-                implementation: sass,
 				sourceMap: true,
 				outputStyle: 'compact',
 				includePaths: [ '<%= src.bootstrap %>/stylesheets' ]

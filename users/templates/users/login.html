@@ -1,0 +1,59 @@
+{% extends 'ui/base.html' %}
+
+{% load staticfiles %}
+
+{# hide breadcrumb on login page #}
+{% block breadcrumb %}{% endblock %}
+
+{% block title %} - Login{% endblock %}
+{% block header %}Login{% endblock %}
+
+{% block content %}
+
+	<div class="alert alert-info">
+		<p>
+			The service is only available to authorised users. If you need to use the
+			service and don’t have a login ID and password, please contact the system
+			administrator by email using the feedback link above.
+		</p>
+	</div>
+
+	{% if form.non_field_errors %}
+		<div class="alert alert-danger">{{ form.non_field_errors }}</div>
+	{% elif form.errors %}
+		<div class="alert alert-danger">
+			There were some errors with your submission.  Please see below.
+		</div>
+	{% endif %}
+
+	<form method="post" class="restrict-width-sm">
+
+		<div class="form-group {{ form.email.errors|yesno:'error,' }}">
+			{{ form.email.errors }}
+			{{ form.email.label_tag }}
+			{{ form.email }}
+			{% if form.email.help_text %}<div class="help-text">{{ form.email.help_text }}</div>{% endif %}
+		</div>
+
+		<div class="form-group {{ form.password.errors|yesno:'error,' }}">
+			{{ form.password.errors }}
+			{{ form.password.label_tag }}
+			{{ form.password }}
+			{% if form.password.help_text %}<div class="help-text">{{ form.password.help_text }}</div>{% endif %}
+		</div>
+
+		{% csrf_token %}
+
+		<div class="end-buttons">
+			<input type="submit" class="btn btn-primary" name="s" value="Login">
+		</div>
+
+	</form>
+{% endblock content %}
+
+{# Have to do this with JS because it's not easy to add autofocus attribute to HTML element :-( #}
+{% block js_footer %}
+	<script type="text/javascript">
+		$( '#id_email' ).focus();
+	</script>
+{% endblock %}

@@ -7,7 +7,7 @@ from ui.views import (
     AdminView, AddUserView, ChangeCustomerEmailView, CSVView,
     NewPassView, SendAdminCustomerEmailView, SendCustomerEmailView,
     SoftDeleteWinView, ExportWinsCSVView, AdminUploadCSVView)
-from users.views import oauth_callback_view, oauth_logout_view, oauth_logged_out_view
+from users.views import LoginView, LogoutView
 from wins.views import (
     ConfirmationView, EditWinView, LockedWinTemplateView, MyWinsView,
     NewWinView, NewWinYearView, WinCompleteView, WinTemplateView, WinView
@@ -75,6 +75,7 @@ urlpatterns = [
         name="edit-win-locked"
     ),
 
+
     # review a win
     url(
         r"^wins/review/(?P<win_id>[a-z0-9\-]{36})/$",
@@ -92,18 +93,15 @@ urlpatterns = [
         name="response_sample"
     ),
 
-    url(r"^accounts/callback/$", oauth_callback_view, name="oauth_callback_view"),
-
-
     url(
-        r"^accounts/logout/$",
-        oauth_logout_view,
-        name="logout",
+        r"^accounts/login/$",
+        LoginView.as_view(),
+        name="login",
     ),
     url(
-        r"^accounts/logged_out/$",
-        oauth_logged_out_view,
-        name="logged_out",
+        r"^accounts/logout/$",
+        LogoutView.as_view(),
+        name="logout",
     ),
 
     url(r"^admin$", AdminView.as_view(), name="admin-index"),

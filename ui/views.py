@@ -3,7 +3,6 @@ from io import TextIOWrapper
 from tempfile import TemporaryFile
 
 import sys
-import logging
 
 import _csv
 from boto3.exceptions import Boto3Error
@@ -20,7 +19,7 @@ from defusedcsv import csv
 import boto3
 from raven.contrib.django.raven_compat.models import client as sentry
 
-logger = logging.getLogger(__name__)
+
 
 ERROR_500_TEXT = "Server error, please try again or contact support"
 
@@ -46,9 +45,9 @@ class ExportWinsCSVView(LoginRequiredMixin, View):
         today = datetime.datetime.utcnow()
         today_str = today.strftime('%Y-%m-%d')
         if today.month < 4:
-            fy = '{}-{}'.format(today.year - 1, today.year)
+            fy = '{}-{}'.format(today.year-1, today.year)  
         else:
-            fy = '{}-{}'.format(today.year, today.year + 1)
+            fy = '{}-{}'.format(today.year, today.year+1)
         filename = 'ew-{}-wins-{}.csv'.format(fy, today_str)
         resp = HttpResponse(data_response.content, content_type='text/csv')
         resp['Content-Disposition'] = 'attachment; filename=' + filename
@@ -59,7 +58,6 @@ class StaffRequiredMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
-            logger.warning("non staff attempt to view StaffRequired")
             return HttpResponseForbidden()
         return super().dispatch(request, *args, **kwargs)
 
@@ -92,7 +90,6 @@ class BaseAdminView(LoginRequiredMixin, StaffRequiredMixin, TemplateView):
 
 
 class AdminView(BaseAdminView):
-    logger.debug(f"base admin view")
     template_name = 'ui/admin/index.html'
 
 
@@ -204,6 +201,7 @@ def check_content_type(content_type):
 
 
 class AdminUploadCSVView(BaseAdminView):
+
     endpoint = settings.CSV_UPLOAD_NOTIFY_AP
     template_name = 'ui/admin/csv-upload.html'
 

@@ -1,5 +1,3 @@
-$font-family-sans-serif: monospace;
-
 @import "bootstrap/variables";
 @import "login";
 @import "win-form";
@@ -54,6 +52,7 @@ body {
 .site-heading {
 
 	margin-bottom: 1em;
+	padding-left: 10px;
 	color: #000;
 
 	h1 {
@@ -124,7 +123,7 @@ td.error input {
 
 
 .form-group {
-
+	
 	margin: 1em 0;
 
 	&.error {
